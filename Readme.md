@@ -26,4 +26,4 @@ The dataset used in this Project is based on the Cleveland Heart Disease. The Da
 
 ## 3. KEY FEATURES
 * **Data Cleaning and Engineering**: The data is exported as DataFrame from `cleveland.csv`
-* 
+* **Data Exploration**: to process the preprocessing the raw data from input with Mimax & Standard Scaler
