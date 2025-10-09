@@ -14,11 +14,12 @@ class AddNewFeatures(BaseEstimator, TransformerMixin):
         """
         self.columns_ = X.columns
         self.new_features_ = []
-        if ("chol", "age") <= set(X.columns):
+        # This is method to compare subset inside a set, to check that (choice, age) is in X.columns or not
+        if {"chol", "age"} <= set(X.columns):
             self.new_features_.append("chol_per_age")
-        if ("trestbps", "chol") <= set(X.columns):
+        if {"trestbps", "chol"} <= set(X.columns):
             self.new_features_.append("bps_per_age")
-        if ("thalach", "age") <= set(X.columns):
+        if {"thalach", "age"} <= set(X.columns):
             self.new_features_.append("hr_ratio")
         if "age" in X.columns:
             self.new_features_.append("age_bin")
@@ -33,12 +34,20 @@ class AddNewFeatures(BaseEstimator, TransformerMixin):
 # This function could not be provided in class
 def add_new_features(df):
     df = df.copy()
-    if ("chol", "age") <= set(df.columns):
+    if {"chol", "age"} <= set(df.columns):
         df["chol_per_age"] = df["chol"] / df["age"]
-    if ("trestbps", "chol") <= set(df.columns):
+    if {"trestbps", "chol"} <= set(df.columns):
         df["bps_per_age"] = df["chol"] / df["trestbps"]
-    if (("thalach", "age") <= set(df.columns)):
+    if {"thalach", "age"} <= set(df.columns):
         df["hr_ratio"] = df["chol"] / df["thalach"]
     if "age" in df.columns:
         df["age_bin"] = pd.cut(df["age"], bins=5, labels=False).astype("category")
     return df
+
+
+if __name__ == "__main__":
+    data = pd.read_csv("/mnt/DATA/10_AIO_VN/AIOVN_Main/Project 4.2_Heart Desease/dataset/train.csv")
+    feature_add = AddNewFeatures()
+    data_fit = feature_add.fit(data)
+    data_transform = feature_add.transform(data)
+    print(data_transform.columns)
