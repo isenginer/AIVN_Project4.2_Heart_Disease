@@ -1,6 +1,31 @@
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+
+def data_loader(path, filenames=None):
+    """
+    minor function to collect train, validation and test data with error check
+    :param path: path to csv file
+    :param filenames: set of filenames
+    :return: train, validation and test dataset
+    """
+    if filenames is None:
+        filenames = ("", "", "")
+    try:
+        train_data = pd.read_csv(path + filenames[0])
+        val_data = pd.read_csv(path + filenames[1])
+        test_data = pd.read_csv(path + filenames[2])
+        print(f"✅ Load data from {filenames} successfully")
+    except FileNotFoundError:
+        print("❌ Data not found, please run data_loader first")
+
+    return (train_data.iloc[:, :-1], # X_train
+            val_data.iloc[:, :-1],   # X_val
+            test_data.iloc[:, :-1],  # X_test
+            train_data.iloc[:, -1],  # y_train
+            val_data.iloc[:, -1],    # y_val
+            test_data.iloc[:, -1])   # y_test
+
 class AddNewFeatures(BaseEstimator, TransformerMixin):
     def __init__(self):
         pass

@@ -26,6 +26,8 @@ def bar_charts(series, k=10):
     ax.set_label("Important features")
     ax.set_xlabel("Features")
     ax.set_ylabel("Importance Score")
+    plt.xticks(rotation=90)
+    plt.tight_layout()
 
 
 def mutual_barhs(X_train, y_train):
