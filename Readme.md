@@ -28,6 +28,16 @@ The dataset used in this Project is based on the Cleveland Heart Disease. The Da
 * **Data Cleaning and Engineering**: The data is exported as DataFrame from `cleveland.csv`
 * **Data Exploration**: to process the preprocessing the raw data from input with Mimax & Standard Scaler
 
+```
+Pipeline (Main)
+├── 'fe' (Pipeline) ← ĐÂY LÀ PIPELINE CON!
+│   ├── 'add' (AddNewFeatures)
+│   └── 'preprocessing' (ColumnTransformer)
+│       ├── 'numerical' (Pipeline → StandardScaler)
+│       └── 'categorical' (Pipeline → OneHotEncoder)
+└── 'dt' (DecisionTreeClassifier)
+```
+
 ## 4. INSTALLER
 ```python
 To clone project go to [git] git clone https://github.com/isenginer/AIVN_Project4.2_Heart_Disease.git
